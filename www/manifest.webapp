@@ -1,7 +1,8 @@
 {
   "version": "0.1",
-  "name": "My App",
-  "description": "Your new awesome Open Web App",
+  "name": "gpmSleep",
+  "type": "privileged",
+  "description": "Mejora las alarmas del sistema con un calculo de ciclos de sueño",
   "launch_path": "/index.html",
   "icons": {
     "16": "/img/icons/mortar-16.png",
@@ -9,24 +10,26 @@
     "128": "/img/icons/mortar-128.png"
   },
   "developer": {
-    "name": "Your Name",
-    "url": "http://yourawesomeapp.com"
+    "name": "@jmanuelrp, @gear3g, @shiromoon",
+    "url": "http://gpmsleep.com"
   },
   "installs_allowed_from": ["*"],
   "appcache_path": "/cache.manifest",
+  "permissions": {
+    "alarms": {
+      "description": "Required to schedule notifications"
+    }
+  },
+  "messages": [
+    { "alarm": "/index.html" }
+  ],
   "locales": {
     "es": {
-      "description": "Su nueva aplicación impresionante Open Web",
+      "description": "Mejora las alarmas del sistema con un calculo de ciclos de sueño",
       "developer": {
-        "url": "http://yourawesomeapp.com"
-      }
-    },
-    "it": {
-      "description": "Il vostro nuovo fantastico Open Web App",
-      "developer": {
-        "url": "http://yourawesomeapp.com"
+        "url": "http://gpmsleep.com"
       }
     }
   },
-  "default_locale": "en"
+  "default_locale": "es"
 }

@@ -24,19 +24,61 @@ define(function(require) {
     // List view
 
     var list = $('.list').get(0);
-    list.add({ title: 'Learn this template',
-               desc: 'This is a list-detail template. Learn more ' +
-                     'about it at its ' +
-                     '<a href="https://github.com/mozilla/mortar-list-detail">project page!</a>',
-               date: new Date() });
-    list.add({ title: 'Make things',
-               desc: 'Make this look like that',
-               date: new Date(12, 9, 5) });
-    for(var i=0; i<8; i++) {
-        list.add({ title: 'Move stuff',
-                   desc: 'Move this over there',
-                   date: new Date(12, 10, 1) });
-    }
+    // list.add({ title: 'Make things',
+    //            desc: 'Make this look like that',
+    //            date: new Date(12, 9, 5) });
+
+navigator.mozSetMessageHandler("alarm", function (mozAlarm) { 
+  alert("alarm fired: " + JSON.stringify(mozAlarm.data)); 
+});
+
+var alarms_req = navigator.mozAlarms.getAll();
+console.log('alarmas',alarms_req);
+
+alarms_req.onsuccess = function() {
+    console.log('exito en consulta');
+    this.result.forEach(function (alarm) {
+        console.log(alarm);
+        list.add({
+            title: alarm.id + ' : ' + alarm.date.toString() + ' : ' + alarm.respectTimezone,
+            desc: 'Peps',
+            date: alarm.date
+        });
+    });
+};
+
+console.log(navigator.mozHasPendingMessage("alarm"));
+
+alarms_req.onerror = function () {
+  console.log('operation failed: ' + this.error);
+};
+
+
+var alarm = {
+  date: new Date(2014,5,28,1,35,0),
+  respectTimezone: 'honorTimezone',
+  data: {
+    message: "Do something dude!"
+  }
+};
+
+var request = navigator.mozAlarms.add(alarm.date, alarm.respectTimezone, alarm.data);
+
+request.onsuccess = function () {
+  console.log('A new alarm has been set:' + this.result);
+  alarm.id = this.result; // get the id of the new alarm.
+   list.add({
+            title: alarm.id + ' : ' + alarm.date.toString() + ' : ' + alarm.respectTimezone,
+            desc: 'Peps',
+            date: alarm.date
+        });
+};
+
+    // for(var i=0; i<alarms.length; i++) {
+    //     list.add({ title: 'Move stuff',
+    //                desc: 'Move this over there',
+    //                date: new Date(12, 10, 1) });
+    // }
 
     // Detail view
 
